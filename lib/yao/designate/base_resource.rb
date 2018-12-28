@@ -10,7 +10,7 @@ module Yao
           res = if id_or_permalink =~ /^https?:\/\//
                   GET(id_or_permalink, query)
                 else
-                  GET([resources_path, id_or_permalink].join("/"), query)
+                  GET(create_url([api_version, resources_path, id_or_permalink]), query)
                 end
           return_resource(res.body)
         end
@@ -18,7 +18,7 @@ module Yao
 
         def create(resource_params)
           params = resource_params
-          res = POST(resources_path) do |req|
+          res = POST(create_url([api_version, resources_path])) do |req|
             req.body = params.to_json
             req.headers['Content-Type'] = 'application/json'
           end
@@ -27,7 +27,7 @@ module Yao
 
         def update(id, resource_params)
           params = resource_params
-          res = PUT([resources_path, id].join("/")) do |req|
+          res = PUT(create_url([api_version, resources_path, id])) do |req|
             req.body = params.to_json
             req.headers['Content-Type'] = 'application/json'
           end

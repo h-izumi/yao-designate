@@ -8,4 +8,5 @@ Yao.configure do
   tenant_name ENV['OS_TENANT_NAME']
   username    ENV['OS_USERNAME']
   password    ENV['OS_PASSWORD']
+  endpoints   dns: { public: 'https://dns-service.tyo1.conoha.io' }
 end
